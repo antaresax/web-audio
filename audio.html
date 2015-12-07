@@ -86,7 +86,7 @@ function WebAudioEngine(audioctx,destination){
     else
       return;
     this.nodes.gai1 = this.audioctx.createGain();
-    this.nodes.gai1.gain.value = 10;
+    this.nodes.gai1.gain.value = 0;
     this.nodes.str1 = this.strmsrc;
     this.nodes.kno1 = new Knob('kno1');
     this.nodes.gai1.connect(this.nodes.destination);
