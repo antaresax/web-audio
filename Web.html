@@ -9,10 +9,34 @@
 
 <link rel="import" href="zzz/polymer.html">
 <link rel="import" href="zzz/controls.html">
+<webaudio-switch id="switch1" src="img/switch_toggle.png"  value="0" max="100" width="54" height="54"></webaudio-switch>
 <style>
 webaudio-knob{margin:10px;}
 webaudio-switch{margin:10px;}
 </style>
+
+<script type="text/javascript">
+ 
+    //<button onclick='audioengine.rebuild();audioengine.start()'>Play</button> <button onclick='audioengine.stop()'>Stop</button><br/>
+  
+    function ddd(e) {
+      
+        if(e.target.value=="1") {
+
+      audioengine.rebuild();audioengine.start(); 
+
+          }
+             if(e.target.value=="0") {
+       audioengine.stop(); 
+
+    
+          }
+       
+    } 
+      var switch1 = document.getElementById('switch1');
+        switch1.addEventListener("change",ddd,false);
+
+     </script>
 <script>
 
 //Usage:
@@ -142,11 +166,19 @@ function WebAudioEngine(audioctx,destination){
   };
   this.poll=setInterval(this.build.bind(this),100);
 }
+
+
+    
 window.addEventListener('load',function(){audioengine=new WebAudioEngine()});
+
+    
+ 
 </script>
-<button onclick='audioengine.rebuild();audioengine.start()'>Play</button> <button onclick='audioengine.stop()'>Stop</button><br/>
-<webaudio-knob diameter="32""></webaudio-knob>
+<br/>
+<webaudio-knob diameter="32""> </webaudio-knob> 
+
 <webaudio-knob id="kno1"   style="position:absolute;left:48px;top:76px" src="img/LittlePhatty.png" value="0" max="100" step="1" diameter="64" sprites="100" tooltip="Knob1 tooltip abcdefghijklmnopqustuvwxyz"></webaudio-knob>
+
 
 </body>
 </html>
