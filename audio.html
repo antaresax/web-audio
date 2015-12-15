@@ -13,23 +13,7 @@
 webaudio-knob{margin:10px;}
 webaudio-switch{margin:10px;}
 </style>
-</head>
-<body>
-<!-- Knobs/keyboards are used. You should place webcomponents.min.js / polymer.js / polymer.html / layout.html / controls.html to webcomponents folder -->
-
-    <div style="position:relative;background-image: url('img/back.png');width:980px;height:600px;margin:20px auto;padding:0px;">
-
-<button onclick='audioengine.rebuild();audioengine.start()'>Play</button>
- <button onclick='audioengine.stop()'>Stop</button><br/>
-<webaudio-switch id="kno"   style="position:absolute;left:70px;top:160px" src="img/switch_toggle.png" width="54" height="54"></webaudio-switch>
-
-<webaudio-switch id="kno"   style="position:absolute;left:110px;top:160px" src="img/switch_toggle.png" width="54" height="54"></webaudio-switch>
-
-  <webaudio-knob id="kno1"   style="position:absolute;left:100px;top:230px" src="img/b-knob.png" value="0" max="50" step="1" diameter="100" sprites="99" ></webaudio-knob>   
-
-   <webaudio-knob id="kno2"   style="position:absolute;left:250px;top:230px" src="img/b-knob.png" value="0" max="50" step="1" diameter="100" sprites="99" ></webaudio-knob>
 <script>
-
 //Usage:
 //  audioengine=new WebAudioEngine();
 //  audioengine.start(NodeName);    -- start specified osc/bufsrc
@@ -41,10 +25,8 @@ webaudio-switch{margin:10px;}
 //access to each node:
 //  audioengine.nodes.NodeName -- ex. audioengine.nodes.osc1
 //  note that osc/bufsrc will be recreated after rebuild()
-
 function WebAudioEngine(audioctx,destination){
-  this.waddata = [{n:"destination",x:568,y:86,mode:0,ver:1,W:800,H:600},{n:"str1",x:186,y:144,c:["gai1"]},{n:"gai1",x:346,y:213,p:{gain:0},c:["destination"]},{n:"kno1",x:500,y:300,p:{val:31},c:["gai1.gain"]}];
-
+  this.waddata = [{n:"destination",x:568,y:86,mode:0,ver:1,W:800,H:600},{n:"gai1",x:374,y:143,p:{gain:0},c:["destination"]},{n:"str1",x:164,y:171,c:["gai1"]},{n:"kno1",x:500,y:300,p:{val:0},c:["gai1.gain"]}];
   function Knob(id){
     this.c=[];
     this.type='kno';
@@ -100,12 +82,12 @@ function WebAudioEngine(audioctx,destination){
       clearInterval(this.poll);
     else
       return;
-    this.nodes.str1 = this.strmsrc;
     this.nodes.gai1 = this.audioctx.createGain();
     this.nodes.gai1.gain.value = 0;
+    this.nodes.str1 = this.strmsrc;
     this.nodes.kno1 = new Knob('kno1');
-    this.nodes.str1.connect(this.nodes.gai1);
     this.nodes.gai1.connect(this.nodes.destination);
+    this.nodes.str1.connect(this.nodes.gai1);
     this.nodes.kno1.connect(this.nodes.gai1.gain);
   };
   this.rebuild=function(nn){
@@ -171,10 +153,10 @@ function WebAudioEngine(audioctx,destination){
   this.poll=setInterval(this.build.bind(this),100);
 }
 window.addEventListener('load',function(){audioengine=new WebAudioEngine()});
-
-
 </script>
- 
+<button onclick='audioengine.rebuild();audioengine.start()'>Play</button> <button onclick='audioengine.stop()'>Stop</button><br/>
+
+<webaudio-knob id="kno1"   style="position:absolute;left:48px;top:76px" src="img/LittlePhatty.png" value="0" max="100" step="1" diameter="64" sprites="100" tooltip="Knob1 tooltip abcdefghijklmnopqustuvwxyz"></webaudio-knob>
 
 </body>
 </html>
